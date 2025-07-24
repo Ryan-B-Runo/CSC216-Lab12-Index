@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class Driver {
@@ -34,12 +33,22 @@ public class Driver {
                 position++;
 
             }
+
             fileScan.close();
 
-            for(String word : wordLocations.keySet()) {
-                System.out.println(word + ": " + wordLocations.get(word));
-            }
+            try{
+                FileWriter fw = new FileWriter("index.txt");
+                BufferedWriter bw = new BufferedWriter(fw);
 
+                for(String word : wordLocations.keySet()) {
+                    bw.write(word + ": " + wordLocations.get(word) + "\n");
+                }
+                bw.close();
+                System.out.println("Index written to 'index.txt'");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
